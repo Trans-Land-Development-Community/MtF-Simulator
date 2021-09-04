@@ -15,11 +15,6 @@ private lateinit var simulation: Simulation
 
 fun main() {
     initEvents()
-    println("${EventManager.events.size} events initialized")
-
-    // Debug
-    println(EventManager.events)
-    println(EventManager.group)
 
     simulation = newSimulation()
 
@@ -48,10 +43,7 @@ private fun newSimulation(): Simulation {
 }
 
 private fun Node.grow() {
-    println("Clicked!")
-
     if (simulation.dead) {
-        println("Restarted!")
         document.body?.clear()
         simulation = newSimulation()
     }
@@ -63,7 +55,4 @@ private fun Node.grow() {
             +"${simulation.age}岁: ${result.message}"
         }
     }
-
-    // Debug
-    println(simulation.attributes)
 }
