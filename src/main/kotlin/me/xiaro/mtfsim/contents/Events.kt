@@ -23,11 +23,13 @@ fun initEvents() {
         }
         "死亡" {
             desc { "你死了，享年${age}岁。" }
-            weight(-400) {
-                add { age * 10 - Attribute.STRENGTH * 25 }
+            weight {
+                buildWeight(-400) {
+                    plus(age * 10 - Attribute.STRENGTH * 25)
+                }
             }
             modify {
-                Attribute.HEALTH set Int.MIN_VALUE
+                set(Attribute.HEALTH, Int.MIN_VALUE)
             }
         }
     }
@@ -96,8 +98,10 @@ fun initEvents() {
         "顽皮" {
             desc("顽皮的你经常打坏东西。")
             check { !hasEvent("乖巧") }
-            weight(300) {
-                sub { Attribute.FEMININITY * 50 }
+            weight {
+                buildWeight(300) {
+                    minus(Attribute.FEMININITY * 50)
+                }
             }
             modify {
                 Attribute.FEMININITY - 2
@@ -108,8 +112,10 @@ fun initEvents() {
         "乖巧" {
             desc("别人都夸你安静乖巧。")
             check { !hasEvent("顽皮") }
-            weight(200) {
-                addIf(20) { hasEvent("生儿育女") }
+            weight {
+                buildWeight(200) {
+                    addIf(20, hasEvent("生儿育女"))
+                }
             }
             modify {
                 Attribute.FEMININITY + 1
@@ -117,9 +123,11 @@ fun initEvents() {
         }
         "积木" {
             desc("你喜欢玩积木。")
-            weight(150) {
-                addIf(20) { hasEvent("哥哥") }
-                addIf(-120) { hasEvent("生儿育女") }
+            weight {
+                buildWeight(150) {
+                    addIf(20, hasEvent("哥哥"))
+                    addIf(-120, hasEvent("生儿育女"))
+                }
             }
             modify {
                 Attribute.IQ + 1
@@ -127,11 +135,13 @@ fun initEvents() {
         }
         "洋娃娃" {
             desc("你喜欢玩洋娃娃。")
-            weight(80) {
-                addIf(-75) { hasEvent("积木") }
-                addIf(20) { hasEvent("姐姐") }
-                addIf(20) { hasEvent("乖巧") }
-                addIf(100) { hasEvent("生儿育女") }
+            weight {
+                buildWeight(80) {
+                    addIf(-75, hasEvent("积木"))
+                    addIf(20, hasEvent("姐姐"))
+                    addIf(20, hasEvent("乖巧"))
+                    addIf(100, hasEvent("生儿育女"))
+                }
             }
             modify {
                 Attribute.FEMININITY + 3
@@ -150,8 +160,10 @@ fun initEvents() {
         "空之缘" {
             desc("你偷偷看到了哥哥在看一部叫《空之缘》的动漫")
             check { withinAge(8..16) && Attribute.FEMININITY > 1 }
-            weight(100) {
-                addIf(50) { hasEvent("二次元") }
+            weight {
+                buildWeight(100) {
+                    addIf(50, hasEvent("二次元"))
+                }
             }
         }
         "哥哥的眼神" {
@@ -188,8 +200,10 @@ fun initEvents() {
         "姐姐教化妆" {
             desc("姐姐手把手教你化妆。")
             check { olderThan(12) }
-            weight(200) {
-                addIf(100) { hasEvent("换装游戏") }
+            weight {
+                buildWeight(200) {
+                    addIf(100, hasEvent("换装游戏"))
+                }
             }
             modify {
                 Attribute.BEAUTY + 1
@@ -231,8 +245,10 @@ fun initEvents() {
         "普通小学" {
             desc("你上了个普通小学。")
             check { olderThan(5) }
-            weight(2000) {
-                mul { (age - 5) * 0.5 + 1.0 }
+            weight {
+                buildWeight(2000) {
+                    times((age - 5) * 0.5 + 1.0)
+                }
             }
             modify {
                 Attribute.IQ + 1
@@ -241,9 +257,11 @@ fun initEvents() {
         "贵族小学" {
             desc("你上了个贵族小学。")
             check { olderThan(5) && Attribute.ECONOMIC > 12 }
-            weight(500) {
-                add { (Attribute.ECONOMIC - 12) * 200 }
-                mul { (age - 5) * 0.5 + 1.0 }
+            weight {
+                buildWeight(500) {
+                    plus((Attribute.ECONOMIC - 12) * 200)
+                    times((age - 5) * 0.5 + 1.0)
+                }
             }
             modify {
                 Attribute.IQ + 2
@@ -257,8 +275,10 @@ fun initEvents() {
         "普通初中" {
             desc("你上了个普通初中。")
             check { olderThan(11) }
-            weight(2000) {
-                mul { (age - 11) * 0.5 + 1.0 }
+            weight {
+                buildWeight(2000) {
+                    times((age - 11) * 0.5 + 1.0)
+                }
             }
             modify {
                 Attribute.IQ + 1
@@ -267,10 +287,12 @@ fun initEvents() {
         "贵族初中" {
             desc("你上了个贵族初中。")
             check { olderThan(11) && Attribute.ECONOMIC > 14 }
-            weight(500) {
-                add { (Attribute.ECONOMIC - 14) * 200 }
-                addIf(400) { hasEvent("贵族小学") }
-                mul { (age - 11) * 0.5 + 1.0 }
+            weight {
+                buildWeight(500) {
+                    plus((Attribute.ECONOMIC - 14) * 200)
+                    addIf(400, hasEvent("贵族小学"))
+                    times((age - 11) * 0.5 + 1.0)
+                }
             }
             modify {
                 Attribute.IQ + 2
@@ -284,15 +306,19 @@ fun initEvents() {
         "职高" {
             desc("中考落榜的你随便找了家职高。")
             check { Attribute.IQ < 10 }
-            weight(1000) {
-                add { (10 - Attribute.IQ) * 250 }
+            weight {
+                buildWeight(1000) {
+                    plus((10 - Attribute.IQ) * 250)
+                }
             }
         }
         "普通高中" {
             desc("中考成绩一般般，上了个普通高中。")
-            weight(2000) {
-                addIf(-500) { Attribute.IQ > 16 }
-                addIf(-500) { Attribute.ECONOMIC > 16 }
+            weight {
+                buildWeight(2000) {
+                    addIf(-500, Attribute.IQ > 16)
+                    addIf(-500, Attribute.ECONOMIC > 16)
+                }
             }
             modify {
                 Attribute.IQ + 1
@@ -301,10 +327,12 @@ fun initEvents() {
         "重点高中" {
             desc("中考发挥的很好，上了重点高中。")
             check { Attribute.IQ > 14 }
-            weight(1000) {
-                addIf(200) { hasEvent("贵族初中") }
-                add { (Attribute.IQ - 14) * 200 }
-                mul { (age - 11) * 0.5 + 1.0 }
+            weight {
+                buildWeight(1000) {
+                    addIf(200, hasEvent("贵族初中"))
+                    plus((Attribute.IQ - 14) * 200)
+                    times((age - 11) * 0.5 + 1.0)
+                }
             }
             modify {
                 Attribute.IQ + 2
@@ -313,10 +341,12 @@ fun initEvents() {
         "贵族高中" {
             desc("家里砸钱让你上了个贵族高中。")
             check { Attribute.ECONOMIC > 16 }
-            weight(500) {
-                addIf(400) { hasEvent("贵族初中") }
-                add { (Attribute.ECONOMIC - 16) * 200 }
-                mul { (age - 11) * 0.5 + 1.0 }
+            weight {
+                buildWeight(500) {
+                    addIf(400, hasEvent("贵族初中"))
+                    plus((Attribute.ECONOMIC - 16) * 200)
+                    times((age - 11) * 0.5 + 1.0)
+                }
             }
             modify {
                 Attribute.IQ + 2
@@ -335,15 +365,19 @@ fun initEvents() {
         "重本" {
             desc("高考发挥不错，过了重本线。")
             check { Attribute.IQ > 18 }
-            weight(1000) {
-                add { (Attribute.IQ - 18) * 200 }
+            weight {
+                buildWeight(1000) {
+                    plus((Attribute.IQ - 18) * 200)
+                }
             }
         }
         "985" {
             desc("高考成功，考上了家985。")
             check { Attribute.IQ > 20 }
-            weight(1000) {
-                add { (Attribute.IQ - 20) * 200 }
+            weight {
+                buildWeight(1000) {
+                    plus((Attribute.IQ - 20) * 200)
+                }
             }
         }
     }
@@ -392,8 +426,10 @@ fun initEvents() {
             desc("你发现你每次看小黄本代入的都是女性角色。")
             desc("看本子的时候你经常幻想自己是女主。")
             check { olderThan(12) && hasEvent("看本子") }
-            weight(25) {
-                mul { Attribute.FEMININITY * 0.2 + 1.0 }
+            weight {
+                buildWeight(25) {
+                    times(Attribute.FEMININITY * 0.2 + 1.0)
+                }
             }
             modify {
                 Attribute.FEMININITY + 1
@@ -406,29 +442,37 @@ fun initEvents() {
 
         "撸啊撸" {
             desc("你喜欢玩撸啊撸。")
-            weight(50) {
-                addIf(-40) { hasGroup("游戏") }
-                addIf(-5) { hasEvent("农药") }
+            weight {
+                buildWeight(50) {
+                    addIf(-40, hasGroup("游戏"))
+                    addIf(-5, hasEvent("农药"))
+                }
             }
         }
         "原批" {
             desc("你喜欢玩原神。")
-            weight(50) {
-                addIf(-40) { hasGroup("游戏") }
+            weight {
+                buildWeight(50) {
+                    addIf(-40, hasGroup("游戏"))
+                }
             }
         }
         "农药" {
             desc("你喜欢玩亡者农药。")
-            weight(50) {
-                addIf(-40) { hasGroup("游戏") }
-                addIf(-5) { hasEvent("撸啊撸") }
+            weight {
+                buildWeight(50) {
+                    addIf(-40, hasGroup("游戏"))
+                    addIf(-5, hasEvent("撸啊撸"))
+                }
             }
         }
         "Galgame" {
             desc("你喜欢玩Galgame。")
-            weight(50) {
-                addIf(-40) { hasGroup("游戏") }
-                addIf(40) { hasEvent("二次元") }
+            weight {
+                buildWeight(50) {
+                    addIf(-40, hasGroup("游戏"))
+                    addIf(40, hasEvent("二次元"))
+                }
             }
         }
     }
@@ -463,14 +507,18 @@ fun initEvents() {
 
         "恋爱绮谭_1" {
             desc("你跟风玩了某破防小游戏，并没有什么感觉。")
-            weight(50) {
-                add { (Attribute.FEMININITY - 2) * 25 }
+            weight {
+                buildWeight(50) {
+                    plus((Attribute.FEMININITY - 2) * 25)
+                }
             }
         }
         "恋爱绮谭_2" {
             desc("你跟风玩了某破防小游戏，破防哭了一场。")
-            weight(30) {
-                add { Attribute.FEMININITY * 25 }
+            weight {
+                buildWeight(30) {
+                    plus(Attribute.FEMININITY * 25)
+                }
             }
             modify {
                 Attribute.FEMININITY + 1
@@ -479,8 +527,10 @@ fun initEvents() {
         "恋爱绮谭_3" {
             desc("你跟风玩了某破防小游戏，破防大哭了一场。")
             check { Attribute.FEMININITY > 4 }
-            weight(40) {
-                add { Attribute.FEMININITY * 10 }
+            weight {
+                buildWeight(40) {
+                    plus(Attribute.FEMININITY * 10)
+                }
             }
             modify {
                 Attribute.FEMININITY + 2
@@ -489,8 +539,10 @@ fun initEvents() {
         "恋爱绮谭_4" {
             desc("你跟风玩了某破防小游戏，苏半夏竟是你自己。")
             check { Attribute.FEMININITY > 8 }
-            weight(50) {
-                add { Attribute.FEMININITY * 10 }
+            weight {
+                buildWeight(50) {
+                    plus(Attribute.FEMININITY * 10)
+                }
             }
             modify {
                 Attribute.FEMININITY + 3
@@ -511,8 +563,10 @@ fun initEvents() {
         "被当女孩子" {
             desc("总是被当成女孩子。")
             check { withinAge(3..15) && Attribute.FEMININITY > 8 }
-            weight(80) {
-                add { (Attribute.FEMININITY - 8) * 10 }
+            weight {
+                buildWeight(80) {
+                    plus((Attribute.FEMININITY - 8) * 10)
+                }
             }
             modify {
                 Attribute.FEMININITY + 4
@@ -521,8 +575,10 @@ fun initEvents() {
         "偷穿表姐裙子" {
             desc("你偷偷穿上了表姐的裙子，对着镜子照了半天。")
             check { withinAge(3..18) && Attribute.FEMININITY > 4 }
-            weight(50) {
-                add { (Attribute.FEMININITY - 4) * 10 }
+            weight {
+                buildWeight(50) {
+                    plus((Attribute.FEMININITY - 4) * 10)
+                }
             }
             modify {
                 Attribute.FEMININITY + 3
@@ -531,8 +587,10 @@ fun initEvents() {
         "被男生偷看_1" {
             desc("做操体转运动时，男同学总是偷看你。")
             check { withinAge(3..6) && Attribute.FEMININITY > 8 }
-            weight(40) {
-                add { (Attribute.FEMININITY - 8) * 10 }
+            weight {
+                buildWeight(40) {
+                    plus((Attribute.FEMININITY - 8) * 10)
+                }
             }
             modify {
                 Attribute.FEMININITY + 1
@@ -541,8 +599,10 @@ fun initEvents() {
         "网上性别女_1" {
             desc("你在网上用的性别是女。")
             check { withinAge(8..16) && Attribute.FEMININITY > 2 }
-            weight(100) {
-                add { Attribute.FEMININITY * 5 }
+            weight {
+                buildWeight(100) {
+                    plus(Attribute.FEMININITY * 5)
+                }
             }
             modify {
                 Attribute.FEMININITY + 1
@@ -554,8 +614,10 @@ fun initEvents() {
         "和女孩子玩_1" {
             desc("跟邻家女孩子玩的很开心。")
             check { withinAge(3..12) && Attribute.FEMININITY > 4 }
-            weight(50) {
-                add { (Attribute.FEMININITY - 4) * 10 }
+            weight {
+                buildWeight(50) {
+                    plus((Attribute.FEMININITY - 4) * 10)
+                }
             }
             modify {
                 Attribute.FEMININITY + 2
@@ -564,8 +626,10 @@ fun initEvents() {
         "和女孩子玩_2" {
             desc("你经常和女同学玩跳皮筋。")
             check { withinAge(6..16) && Attribute.FEMININITY > 6 }
-            weight(40) {
-                add { (Attribute.FEMININITY - 6) * 10 }
+            weight {
+                buildWeight(40) {
+                    plus((Attribute.FEMININITY - 6) * 10)
+                }
             }
             modify {
                 Attribute.FEMININITY + 2
@@ -579,8 +643,10 @@ fun initEvents() {
 
         "接触MTF_1" {
             desc("在网上接触到MTF群体，觉醒了性别认同")
-            weight(50) {
-                addIf(100) { hasEvent("生儿育女") }
+            weight {
+                buildWeight(50) {
+                    addIf(100, hasEvent("生儿育女"))
+                }
             }
             modify {
                 Attribute.FEMININITY + 1
@@ -600,8 +666,10 @@ fun initEvents() {
 
         "开始吃糖_1" {
             desc("你在网上了解到了雌性激素药物，决定开始吃糖，但没有途径的你只能选择吃避孕药。")
-            weight(50) {
-                addIf(100) { Attribute.IQ < 8 || Attribute.ECONOMIC < 6 }
+            weight {
+                buildWeight(50) {
+                    addIf(100, Attribute.IQ < 8 || Attribute.ECONOMIC < 6)
+                }
             }
             modify {
                 Attribute.FEMININITY + 4

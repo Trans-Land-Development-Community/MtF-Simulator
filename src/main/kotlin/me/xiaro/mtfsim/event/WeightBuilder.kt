@@ -9,28 +9,25 @@ class WeightBuilder(
     var weight: Int,
 ) {
 
-    inline fun mulIf(value: Double, block: Simulation.() -> Boolean) {
-        if (block.invoke(simulation)) times(value)
+    fun mulIf(value: Double, boolean: Boolean) {
+        if (boolean) times(value)
     }
 
-    inline fun addIf(value: Int, block: Simulation.() -> Boolean) {
-        if (block.invoke(simulation)) weight += value
-    }
-
-    inline fun add(block: Simulation.() -> Int) {
-        plus(block.invoke(simulation))
-    }
-
-    inline fun sub(block: Simulation.() -> Int) {
-        plus(-block.invoke(simulation))
-    }
-
-    inline fun mul(block: Simulation.() -> Double) {
-        times(block.invoke(simulation))
+    fun addIf(value: Int, boolean: Boolean) {
+        if (boolean) plus(value)
     }
 
     operator fun plus(value: Int) {
         weight += value
+    }
+
+    operator fun minus(value: Int) {
+        weight += value
+    }
+
+
+    operator fun times(value: Int) {
+        weight *= value
     }
 
     operator fun times(value: Double) {

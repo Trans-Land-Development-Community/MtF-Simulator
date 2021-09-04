@@ -33,14 +33,14 @@ fun main() {
 fun newSimulation(): Simulation {
     return Simulation(
         AttributeMap().apply {
-            Attribute.BEAUTY set 20
-            Attribute.IQ set 20
-            Attribute.STRENGTH set 20
-            Attribute.ECONOMIC set 20
+            set(Attribute.BEAUTY, 20)
+            set(Attribute.IQ, 20)
+            set(Attribute.STRENGTH, 20)
+            set(Attribute.ECONOMIC, 20)
 
-            Attribute.HAPPINESS set 10
-            Attribute.HEALTH set 10
-            Attribute.FEMININITY set 0
+            set(Attribute.HAPPINESS, 20)
+            set(Attribute.HEALTH, 20)
+            set(Attribute.FEMININITY, 0)
         }
     )
 }
@@ -58,7 +58,7 @@ fun Node.grow() {
 
     append {
         div {
-            + "${simulation.age}岁: ${result.message}"
+            +"${simulation.age}岁: ${result.message}"
         }
     }
 

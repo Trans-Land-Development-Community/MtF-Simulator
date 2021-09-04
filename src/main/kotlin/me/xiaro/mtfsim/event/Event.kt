@@ -65,10 +65,12 @@ class Event private constructor(
             weight = { value }
         }
 
-        fun weight(baseWeight: Int, block: WeightBuilder.() -> Unit) {
-            weight = {
-                WeightBuilder(this, baseWeight).apply(block).build()
-            }
+        fun weight(block: Simulation.() -> Int) {
+            weight = block
+        }
+
+        fun Simulation.buildWeight(baseWeight: Int, block: WeightBuilder.() -> Unit): Int {
+            return WeightBuilder(this, baseWeight).apply(block).build()
         }
 
         fun modify(block: AttributeMap.() -> Unit) {

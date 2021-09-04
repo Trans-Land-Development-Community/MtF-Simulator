@@ -27,8 +27,8 @@ class AttributeMap private constructor(private val array: IntArray) : Map<Attrib
         add(this, -value)
     }
 
-    infix fun Attribute.set(value: Int) {
-        array[this.ordinal] = value
+    operator fun set(attribute: Attribute, value: Int) {
+        array[attribute.ordinal] = value
     }
 
     private fun add(type: Attribute, value: Int) {
