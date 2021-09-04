@@ -15,7 +15,9 @@ private lateinit var simulation: Simulation
 
 fun main() {
     initEvents()
-    console.info("${EventManager.events.size} events initialized")
+    println("${EventManager.events.size} events initialized")
+
+    // Debug
     println(EventManager.events)
     println(EventManager.group)
 
@@ -30,7 +32,7 @@ fun main() {
     }
 }
 
-fun newSimulation(): Simulation {
+private fun newSimulation(): Simulation {
     return Simulation(
         AttributeMap().apply {
             set(Attribute.BEAUTY, 20)
@@ -38,14 +40,14 @@ fun newSimulation(): Simulation {
             set(Attribute.STRENGTH, 20)
             set(Attribute.ECONOMIC, 20)
 
-            set(Attribute.HAPPINESS, 20)
-            set(Attribute.HEALTH, 20)
+            set(Attribute.HAPPINESS, 10)
+            set(Attribute.HEALTH, 10)
             set(Attribute.FEMININITY, 0)
         }
     )
 }
 
-fun Node.grow() {
+private fun Node.grow() {
     println("Clicked!")
 
     if (simulation.dead) {
@@ -62,5 +64,6 @@ fun Node.grow() {
         }
     }
 
+    // Debug
     println(simulation.attributes)
 }
