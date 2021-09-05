@@ -11,13 +11,11 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlinx:kotlinx-html:0.7.2")
-}
-
 kotlin {
     js(LEGACY) {
+        compilations.all {
+            compileKotlinTask.kotlinOptions.freeCompilerArgs += listOf("-Xopt-in=kotlin.RequiresOptIn")
+        }
         binaries.executable()
         browser {
             commonWebpackConfig {
@@ -25,4 +23,16 @@ kotlin {
             }
         }
     }
+}
+
+dependencies {
+    testImplementation(kotlin("test"))
+    implementation("org.jetbrains.kotlinx:kotlinx-html:0.7.2")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.241-kotlin-1.5.30")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.241-kotlin-1.5.30")
+    implementation(npm("react", "17.0.2"))
+    implementation(npm("react-dom", "17.0.2"))
+
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.241-kotlin-1.5.30")
+    implementation(npm("styled-components", "~5.3.1"))
 }
