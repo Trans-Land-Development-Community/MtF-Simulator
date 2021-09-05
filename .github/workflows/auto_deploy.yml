@@ -27,7 +27,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Gradle Build
-        run: ./gradlew --build-cache build
+        run: ./gradlew build
 
       # If main branch update, deploy to gh-pages
       - name: Deploy
