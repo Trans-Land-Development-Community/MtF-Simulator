@@ -32,6 +32,7 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.241-kotlin-1.5.30")
     implementation(npm("react", "17.0.2"))
     implementation(npm("react-dom", "17.0.2"))
+    implementation(npm("react-is", "17.0.2"))
 
     implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.1-pre.241-kotlin-1.5.30")
     implementation(npm("styled-components", "~5.3.1"))
