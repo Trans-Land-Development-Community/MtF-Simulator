@@ -12,4 +12,10 @@ enum class Attribute(val displayName: String, val startup: Boolean, val hidden: 
     override fun toString(): String {
         return displayName
     }
+
+    companion object {
+        val startUpAttributes by lazy {
+            values().filter { it.startup }
+        }
+    }
 }

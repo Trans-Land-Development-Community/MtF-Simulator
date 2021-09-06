@@ -28,8 +28,9 @@ fun main() {
 }
 
 private fun updateFontSize() {
-    val width = min(window.innerWidth, 480)
-    val scale = (width - 240) / 240.0 * 8.0 + 8.0
+    val width = min(window.innerWidth, 640)
+    val scale = (width - 320) / 320.0 * 12.0 + 12.0
     val rounded = round(scale * 10000.0) / 10000.0
+    println()
     document.documentElement!!.attributes["style"]!!.value = "font-size: ${rounded}px;"
 }

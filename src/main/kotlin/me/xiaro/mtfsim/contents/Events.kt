@@ -328,7 +328,7 @@ fun initEvents() {
             desc("中考发挥的很好，上了重点高中。")
             check { Attribute.IQ > 14 }
             weight {
-                buildWeight(1000) {
+                buildWeight(2000) {
                     addIf(200, hasEvent("贵族初中"))
                     plus((Attribute.IQ - 14) * 200)
                     times((age - 11) * 0.5 + 1.0)
@@ -342,7 +342,7 @@ fun initEvents() {
             desc("家里砸钱让你上了个贵族高中。")
             check { Attribute.ECONOMIC > 16 }
             weight {
-                buildWeight(500) {
+                buildWeight(2000) {
                     addIf(400, hasEvent("贵族初中"))
                     plus((Attribute.ECONOMIC - 16) * 200)
                     times((age - 11) * 0.5 + 1.0)
@@ -366,7 +366,7 @@ fun initEvents() {
             desc("高考发挥不错，过了重本线。")
             check { Attribute.IQ > 18 }
             weight {
-                buildWeight(1000) {
+                buildWeight(2000) {
                     plus((Attribute.IQ - 18) * 200)
                 }
             }
@@ -375,8 +375,8 @@ fun initEvents() {
             desc("高考成功，考上了家985。")
             check { Attribute.IQ > 20 }
             weight {
-                buildWeight(1000) {
-                    plus((Attribute.IQ - 20) * 200)
+                buildWeight(2000) {
+                    plus((Attribute.IQ - 20) * 400)
                 }
             }
         }

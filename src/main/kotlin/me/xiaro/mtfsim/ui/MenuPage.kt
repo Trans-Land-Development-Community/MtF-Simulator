@@ -6,6 +6,7 @@ import kotlinx.css.properties.translate
 import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.attrs
+import react.dom.onClick
 import styled.css
 import styled.styledButton
 import styled.styledDiv
@@ -20,7 +21,7 @@ class MenuPage : RComponent<PageProp, State>() {
                 transform {
                     translate((-50).pct, (-50).pct)
                 }
-                fontSize = 4.rem
+                fontSize = 3.rem
                 fontWeight = FontWeight.bold
                 whiteSpace = WhiteSpace.nowrap
                 textAlign = TextAlign.center
@@ -35,19 +36,13 @@ class MenuPage : RComponent<PageProp, State>() {
             }
         }
 
-        styledButton {
+        centeredButton {
             css {
-                position = Position.fixed
-                left = 50.pct
-                top = 62.pct
-                transform {
-                    translate((-50).pct, (-50).pct)
-                }
-                fontSize = 2.rem
+                bottom = 2.rem
             }
 
             attrs {
-                onClickFunction = {
+                onClick = {
                     props.nextPage.invoke()
                 }
             }

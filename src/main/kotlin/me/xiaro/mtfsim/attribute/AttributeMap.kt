@@ -1,9 +1,9 @@
 package me.xiaro.mtfsim.attribute
 
 class AttributeMap private constructor(private val array: IntArray) : Map<Attribute, Int> {
-    constructor(): this(IntArray(Attribute.values().size))
+    constructor() : this(IntArray(Attribute.values().size))
 
-    constructor(attributeMap: AttributeMap): this(attributeMap.array.copyOf())
+    constructor(attributeMap: AttributeMap) : this(attributeMap.array.copyOf())
 
     override val size: Int
         get() = array.size
@@ -18,6 +18,9 @@ class AttributeMap private constructor(private val array: IntArray) : Map<Attrib
         get() = keySet
     override val values: Collection<Int>
         get() = array.toList()
+
+    val startupValues: IntArray
+        get() = array.copyOf(4)
 
     operator fun Attribute.plus(value: Int) {
         add(this, value)

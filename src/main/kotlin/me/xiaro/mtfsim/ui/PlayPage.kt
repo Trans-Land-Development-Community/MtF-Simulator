@@ -9,6 +9,7 @@ import react.*
 import react.dom.attrs
 import react.dom.div
 import react.dom.li
+import react.dom.onClick
 import styled.css
 import styled.styledButton
 import styled.styledUl
@@ -28,14 +29,14 @@ class PlayPage : RComponent<PlayProp, PlayState>() {
                     top = 1.rem
                     bottom = 4.rem
                     overflow = Overflow.auto
-                    fontSize = 1.5.rem
                 }
                 attrs {
                     onClickFunction = {
-                        println("grow!")
-                        val result = props.simulation.grow()
-                        setState {
-                            results.add("${props.simulation.age}岁: ${result.message}")
+                        if (!props.simulation.dead) {
+                            setState {
+                                val result = props.simulation.grow()
+                                results.add("${props.simulation.age}岁: ${result.message}")
+                            }
                         }
                     }
                 }
@@ -58,19 +59,14 @@ class PlayPage : RComponent<PlayProp, PlayState>() {
             }
         })
 
-        styledButton {
+
+        centeredButton {
             css {
-                position = Position.fixed
-                left = 50.pct
-                bottom = 1.rem
-                transform {
-                    translate((-50).pct, 0.pct)
-                }
-                fontSize = 2.rem
+                bottom = 2.rem
             }
 
             attrs {
-                onClickFunction = {
+                onClick = {
                     props.prevPage.invoke()
                 }
             }

@@ -1,12 +1,18 @@
 package me.xiaro.mtfsim.ui
 
-import react.PropsWithChildren
+import me.xiaro.mtfsim.attribute.AttributeMap
 import react.State
 
 external interface AppState : State {
-    var page: EnumPage
+    var page: App.Page
+    var attribute: AttributeMap
 }
 
 external interface PlayState : State {
     var results: MutableList<String>
+}
+
+external interface AttribState: State {
+    var points: Int
+    var attributeMap: AttributeMap
 }
