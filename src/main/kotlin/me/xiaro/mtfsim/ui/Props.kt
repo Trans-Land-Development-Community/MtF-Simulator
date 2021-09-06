@@ -9,7 +9,7 @@ external interface PageProp : Props {
     var nextPage: () -> Unit
 }
 
-external interface AttribProp: Props {
+external interface AttribProp : Props {
     var onExit: () -> Unit
     var onStart: (AttributeMap) -> Unit
 }

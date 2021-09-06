@@ -3,12 +3,12 @@ package me.xiaro.mtfsim.ui
 import kotlinx.css.*
 import kotlinx.css.properties.transform
 import kotlinx.css.properties.translate
-import kotlinx.html.js.onClickFunction
-import react.*
+import react.RBuilder
+import react.RComponent
+import react.State
 import react.dom.attrs
 import react.dom.onClick
 import styled.css
-import styled.styledButton
 import styled.styledDiv
 
 class MenuPage : RComponent<PageProp, State>() {
@@ -26,12 +26,15 @@ class MenuPage : RComponent<PageProp, State>() {
                 whiteSpace = WhiteSpace.nowrap
                 textAlign = TextAlign.center
             }
+
             +"小药娘模拟器"
+
             styledDiv {
                 css {
                     fontSize = 2.rem
                     fontWeight = FontWeight.normal
                 }
+
                 +"做一个女孩子"
             }
         }

@@ -144,7 +144,7 @@ class BitSet : MutableSet<Int> {
         return bitArray.contentHashCode()
     }
 
-    private inner class ExtendedBitSetIterator : MutableIterator<Int>  {
+    private inner class ExtendedBitSetIterator : MutableIterator<Int> {
         private var arrayIndex = 0
         private var bitIndex = 0
 

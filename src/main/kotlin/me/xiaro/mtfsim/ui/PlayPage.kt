@@ -1,8 +1,6 @@
 package me.xiaro.mtfsim.ui
 
 import kotlinx.css.*
-import kotlinx.css.properties.transform
-import kotlinx.css.properties.translate
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.Element
 import react.*
@@ -11,7 +9,6 @@ import react.dom.div
 import react.dom.li
 import react.dom.onClick
 import styled.css
-import styled.styledButton
 import styled.styledUl
 
 class PlayPage : RComponent<PlayProp, PlayState>() {

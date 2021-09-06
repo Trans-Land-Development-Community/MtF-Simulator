@@ -3,8 +3,6 @@ package me.xiaro.mtfsim.ui
 import kotlinx.css.fontSize
 import kotlinx.css.rem
 import me.xiaro.mtfsim.Simulation
-import me.xiaro.mtfsim.attribute.Attribute
-import me.xiaro.mtfsim.attribute.AttributeMap
 import react.Props
 import react.RBuilder
 import react.RComponent
@@ -44,7 +42,7 @@ class App : RComponent<Props, AppState>() {
                             }
                             onStart = {
                                 setState {
-                                    attribute = it
+                                    attributeMap = it
                                     page = Page.PLAY
                                 }
                             }
@@ -54,7 +52,7 @@ class App : RComponent<Props, AppState>() {
                 Page.PLAY -> {
                     child(PlayPage::class) {
                         attrs {
-                            simulation = Simulation(state.attribute)
+                            simulation = Simulation(state.attributeMap)
                             prevPage = {
                                 setState {
                                     page = Page.MENU

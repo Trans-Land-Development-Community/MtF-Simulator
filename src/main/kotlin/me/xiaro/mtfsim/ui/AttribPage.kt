@@ -32,11 +32,14 @@ class AttribPage : RComponent<AttribProp, AttribState>() {
                 whiteSpace = WhiteSpace.nowrap
                 textAlign = TextAlign.center
             }
+
             +"分配初始属性"
+
             styledDiv {
                 css {
                     fontSize = 1.rem
                 }
+
                 +"可用属性点: ${state.points}"
             }
         }
@@ -128,13 +131,14 @@ class AttribPage : RComponent<AttribProp, AttribState>() {
                     onFocus = {
                         it.preventDefault()
                         if (it.relatedTarget != null) {
-                            (it.relatedTarget as HTMLElement).focus();
+                            (it.relatedTarget as HTMLElement).focus()
                         } else {
-                            (it.currentTarget as HTMLElement).blur();
+                            (it.currentTarget as HTMLElement).blur()
                         }
                     }
                 }
             }
+
             attribButton("+") {
                 updateAttrib(attribute, state.attributeMap[attribute] + 2)
             }
@@ -148,7 +152,9 @@ class AttribPage : RComponent<AttribProp, AttribState>() {
                 height = 1.8.rem
                 fontSize = 1.5.rem
             }
+
             +text
+
             attrs {
                 onClick = {
                     action.invoke()

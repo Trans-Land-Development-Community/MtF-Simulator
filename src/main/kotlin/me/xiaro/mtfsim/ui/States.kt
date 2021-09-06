@@ -5,14 +5,14 @@ import react.State
 
 external interface AppState : State {
     var page: App.Page
-    var attribute: AttributeMap
+    var attributeMap: AttributeMap
 }
 
 external interface PlayState : State {
     var results: MutableList<String>
 }
 
-external interface AttribState: State {
+external interface AttribState : State {
     var points: Int
     var attributeMap: AttributeMap
 }
