@@ -36,14 +36,9 @@ class Simulation(
                 || health + attributes[Attribute.STRENGTH] < 0
         }
 
-    init {
-        println(traits)
-    }
-
     fun grow(): EventResult {
         age++
 
-        println(attributes)
         val event = EventManager.getGrowEvent(this)
         val result = EventResult(age, event, event.getMessage(this))
 

@@ -102,7 +102,34 @@ class AttributeMap private constructor(private val array: IntArray) : Map<Attrib
         }
     }
 
-    private companion object {
-        val keySet = WrappedSet(Attribute.values())
+    companion object {
+        private val keySet = WrappedSet(Attribute.values())
+
+        fun random(points: Int = 40): AttributeMap {
+            var pointsLeft = points
+            val attributeMap = default()
+
+            while (pointsLeft > 0) {
+                val attribute = Attribute.startUpAttributes.random()
+                val prev = attributeMap[attribute]
+                if (prev >= 20) continue
+                attributeMap[attribute] = prev + 2
+                pointsLeft -= 2
+            }
+
+            return attributeMap
+        }
+
+        fun default(): AttributeMap = AttributeMap().apply {
+            set(Attribute.BEAUTY, 0)
+            set(Attribute.IQ, 0)
+            set(Attribute.STRENGTH, 0)
+            set(Attribute.ECONOMIC, 0)
+
+            set(Attribute.HAPPINESS, 10)
+            set(Attribute.HEALTH, 10)
+            set(Attribute.FEMININITY, 0)
+        }
+
     }
 }

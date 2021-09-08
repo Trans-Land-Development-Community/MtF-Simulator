@@ -16,7 +16,7 @@ import kotlin.math.min
 class AttribPage : RComponent<AttribProp, AttribState>() {
     override fun AttribState.init() {
         points = totalPoints
-        attributeMap = defaultAttributeMap
+        attributeMap = AttributeMap.default()
     }
 
     override fun RBuilder.render() {
@@ -70,16 +70,8 @@ class AttribPage : RComponent<AttribProp, AttribState>() {
             attrs {
                 onClick = {
                     setState {
-                        attributeMap = defaultAttributeMap
-                        points = totalPoints
-
-                        while (points > 0) {
-                            val attribute = Attribute.startUpAttributes.random()
-                            val prev = attributeMap[attribute]
-                            if (prev >= 20) continue
-                            attributeMap[attribute] = prev + 2
-                            points -= 2
-                        }
+                        attributeMap = AttributeMap.random()
+                        points = 0
                     }
                 }
             }
@@ -170,19 +162,6 @@ class AttribPage : RComponent<AttribProp, AttribState>() {
             points = totalPoints - attributeMap.startupValues.sum()
         }
     }
-
-    private val defaultAttributeMap: AttributeMap
-        get() = AttributeMap().apply {
-            set(Attribute.BEAUTY, 0)
-            set(Attribute.IQ, 0)
-            set(Attribute.STRENGTH, 0)
-            set(Attribute.ECONOMIC, 0)
-
-            set(Attribute.HAPPINESS, 10)
-            set(Attribute.HEALTH, 10)
-            set(Attribute.FEMININITY, 0)
-        }
-
 
     private companion object {
         const val totalPoints = 40

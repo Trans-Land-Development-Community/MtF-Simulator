@@ -4,7 +4,6 @@ import kotlinx.browser.document
 import kotlinx.browser.window
 import me.xiaro.mtfsim.contents.initEvents
 import me.xiaro.mtfsim.contents.initTraits
-import me.xiaro.mtfsim.trait.TraitManager
 import me.xiaro.mtfsim.ui.App
 import org.w3c.dom.get
 import react.dom.render
@@ -14,7 +13,6 @@ import kotlin.math.round
 fun main() {
     initTraits()
     initEvents()
-    println(TraitManager.rarityTraitsMap)
 
     window.onload = {
         updateFontSize()
