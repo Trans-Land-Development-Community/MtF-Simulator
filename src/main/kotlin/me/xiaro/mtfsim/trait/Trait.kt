@@ -1,15 +1,16 @@
 package me.xiaro.mtfsim.trait
 
+import me.xiaro.mtfsim.Simulation
 import me.xiaro.mtfsim.attribute.AttributeMap
 
 class Trait private constructor(
     val name: String,
     val id: Int,
     val description: String,
-    private val modifier: (AttributeMap) -> Unit
+    private val modifier: AttributeMap.(Simulation) -> Unit
 ) {
-    fun applyModifier(attributeBuilder: AttributeMap) {
-        modifier.invoke(attributeBuilder)
+    fun applyModifier(simulation: Simulation, attributeBuilder: AttributeMap) {
+        modifier.invoke(attributeBuilder, simulation)
     }
 
     override fun toString(): String {
@@ -18,10 +19,19 @@ class Trait private constructor(
 
     class Builder(private val name: String) {
         private val id = idCounter++
+        private lateinit var rarity: Rarity
         private lateinit var description: String
-        private var modifier: (AttributeMap) -> Unit = {}
+        private var modifier: AttributeMap.(Simulation) -> Unit = {}
 
-        fun modify(block: AttributeMap.() -> Unit) {
+        fun rarity(value: Rarity) {
+            rarity = value
+        }
+
+        fun desc(string: String) {
+            description = string
+        }
+
+        fun modify(block: AttributeMap.(Simulation) -> Unit) {
             modifier = block
         }
 

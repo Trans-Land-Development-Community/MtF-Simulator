@@ -13,6 +13,10 @@ class WeightBuilder(
         if (boolean) times(value)
     }
 
+    fun mulIf(value: Int, boolean: Boolean) {
+        if (boolean) times(value)
+    }
+
     fun addIf(value: Int, boolean: Boolean) {
         if (boolean) plus(value)
     }

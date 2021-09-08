@@ -4,21 +4,25 @@ import me.xiaro.mtfsim.attribute.Attribute
 import me.xiaro.mtfsim.event.EventGroup
 import me.xiaro.mtfsim.event.EventManager
 
-private operator fun String.invoke(block: EventGroup.Builder.() -> Unit) {
-    val group = EventGroup.Builder(this).apply(block).build()
+fun initEvents() {
+    operator fun String.invoke(block: EventGroup.Builder.() -> Unit) {
+        val group = EventGroup.Builder(this).apply(block).build()
 
-    group.events.forEach {
-        EventManager.registerEvent(it)
+        group.events.forEach {
+            EventManager.registerEvent(it)
+        }
+
+        EventManager.registerGroup(group)
     }
 
-    EventManager.registerGroup(group)
-}
-
-fun initEvents() {
     "通用" {
         "空白" {
             desc("什么都没有发生。")
-            weight(1)
+            weight {
+                buildWeight(5) {
+                    mulIf(5.0, hasTrait("平凡之人"))
+                }
+            }
             repeatable()
         }
         "死亡" {

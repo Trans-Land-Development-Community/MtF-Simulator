@@ -1,6 +1,8 @@
 package me.xiaro.mtfsim.attribute
 
-enum class Attribute(val displayName: String, val startup: Boolean, val hidden: Boolean) {
+import me.xiaro.mtfsim.utils.DisplayEnum
+
+enum class Attribute(override val displayName: String, val startup: Boolean, val hidden: Boolean) : DisplayEnum {
     BEAUTY("颜值", true, false),
     IQ("智商", true, false),
     STRENGTH("体质", true, false),

@@ -7,6 +7,7 @@ import me.xiaro.mtfsim.event.EventGroup
 import me.xiaro.mtfsim.event.EventManager
 import me.xiaro.mtfsim.event.EventResult
 import me.xiaro.mtfsim.trait.Trait
+import me.xiaro.mtfsim.trait.TraitManager
 import me.xiaro.mtfsim.utils.BitSet
 import kotlin.js.Date
 import kotlin.random.Random
@@ -22,6 +23,8 @@ class Simulation(
     private val eventGroups = BitSet()
 
     private val traits = ArrayList<Trait>()
+    private val traitSet = BitSet()
+
     var attributes = baseAttribute; private set
 
     val dead: Boolean
@@ -44,14 +47,32 @@ class Simulation(
 
         val map = AttributeMap(baseAttribute)
         eventResults.forEach {
-            it.event.applyModifier(map)
+            it.event.applyModifier(this, map)
         }
         traits.forEach {
-            it.applyModifier(map)
+            it.applyModifier(this, map)
         }
         attributes = map
 
         return result
+    }
+
+    fun addTrait(trait: Trait) {
+        if (!traitSet.contains(trait.id)) {
+            traits.add(trait)
+        }
+    }
+
+    fun hasTrait(name: String): Boolean {
+        return hasTrait(TraitManager.getTrait(name))
+    }
+
+    fun hasTrait(trait: Trait): Boolean {
+        return hasTrait(trait.id)
+    }
+
+    fun hasTrait(id: Int): Boolean {
+        return traitSet.contains(id)
     }
 
     fun hasGroup(name: String): Boolean {

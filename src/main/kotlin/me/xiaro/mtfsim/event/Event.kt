@@ -10,7 +10,7 @@ class Event private constructor(
     private val messages: ArrayList<(Simulation) -> String>,
     private val check: Simulation.() -> Boolean,
     private val weight: Simulation.() -> Int,
-    private val modifier: (AttributeMap) -> Unit,
+    private val modifier: AttributeMap.(Simulation) -> Unit,
     private val repeatable: Boolean
 ) {
 
@@ -28,8 +28,8 @@ class Event private constructor(
         return weight.invoke(simulation)
     }
 
-    fun applyModifier(attributeMap: AttributeMap) {
-        modifier.invoke(attributeMap)
+    fun applyModifier(simulation: Simulation, attributeMap: AttributeMap) {
+        modifier.invoke(attributeMap, simulation)
     }
 
     override fun toString(): String {
@@ -42,7 +42,7 @@ class Event private constructor(
         private val description = ArrayList<(Simulation) -> String>()
         private var check: Simulation.() -> Boolean = { true }
         private lateinit var weight: Simulation.() -> Int
-        private var modifier: (AttributeMap) -> Unit = {}
+        private var modifier: AttributeMap.(Simulation) -> Unit = {}
         private var repeatable: Boolean = false
 
         fun group(group: EventGroup) {
@@ -73,7 +73,7 @@ class Event private constructor(
             return WeightBuilder(this, baseWeight).apply(block).build()
         }
 
-        fun modify(block: AttributeMap.() -> Unit) {
+        fun modify(block: AttributeMap.(Simulation) -> Unit) {
             modifier = block
         }
 
