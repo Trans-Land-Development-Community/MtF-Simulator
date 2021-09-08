@@ -22,6 +22,18 @@ class AttributeMap private constructor(private val array: IntArray) : Map<Attrib
     val startupValues: IntArray
         get() = array.copyOf(4)
 
+    operator fun Collection<Attribute>.plus(value: Int) {
+        this.forEach {
+            add(it, value)
+        }
+    }
+
+    operator fun Collection<Attribute>.minus(value: Int) {
+        this.forEach {
+            add(it, -value)
+        }
+    }
+
     operator fun Attribute.plus(value: Int) {
         add(this, value)
     }

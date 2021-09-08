@@ -19,5 +19,9 @@ enum class Attribute(override val displayName: String, val startup: Boolean, val
         val startUpAttributes by lazy {
             values().filter { it.startup }
         }
+
+        val allAttributes by lazy {
+            listOf(BEAUTY, IQ, STRENGTH, ECONOMIC, HAPPINESS)
+        }
     }
 }

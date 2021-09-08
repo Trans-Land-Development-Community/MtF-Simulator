@@ -1,12 +1,12 @@
 package me.xiaro.mtfsim.trait
 
+import me.xiaro.mtfsim.utils.MutableNonNullMap
 import me.xiaro.mtfsim.utils.NonNullMap
-import me.xiaro.mtfsim.utils.NonNullMutableMap
 
 object TraitManager {
     private val traits0 = ArrayList<Trait>()
     private val nameTraitMap = HashMap<String, Trait>()
-    private val rarityTraitsMap0 = NonNullMutableMap<Rarity, MutableList<Trait>>(HashMap()) {
+    private val rarityTraitsMap0 = MutableNonNullMap<Rarity, MutableList<Trait>>(HashMap()) {
         mutableListOf()
     }
 
@@ -15,7 +15,7 @@ object TraitManager {
 
     @Suppress("UNCHECKED_CAST")
     val rarityTraitsMap: NonNullMap<Rarity, List<Trait>>
-        get() = rarityTraitsMap0 as NonNullMutableMap<Rarity, List<Trait>>
+        get() = rarityTraitsMap0 as MutableNonNullMap<Rarity, List<Trait>>
 
     fun getTrait(name: String): Trait {
         return nameTraitMap[name] ?: throw IllegalArgumentException("Invalid trait name $name")
@@ -24,5 +24,6 @@ object TraitManager {
     fun registerTrait(trait: Trait) {
         traits0.add(trait)
         nameTraitMap[trait.name] = trait
+        rarityTraitsMap0[trait.rarity].add(trait)
     }
 }

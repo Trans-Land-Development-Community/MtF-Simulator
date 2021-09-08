@@ -1,6 +1,6 @@
 package me.xiaro.mtfsim.utils
 
-class NonNullMutableMap<K, V : Any>(
+class MutableNonNullMap<K, V : Any>(
     override val wrapped: MutableMap<K, V>,
     override val defaultValueFunc: (K) -> V
 ) : NonNullMap<K, V>(wrapped, defaultValueFunc), MutableMap<K, V> {

@@ -1,10 +1,11 @@
 package me.xiaro.mtfsim.trait
 
+import kotlinx.css.Color
 import me.xiaro.mtfsim.utils.DisplayEnum
 
-enum class Rarity(override val displayName: String, val weight: Int) : DisplayEnum {
-    COMMON("普通", 75),
-    RARE("稀有", 18),
-    EPIC("史诗", 4),
-    LEGENDARY("传说", 1)
+enum class Rarity(override val displayName: String, val weight: Int, val color: Color) : DisplayEnum {
+    COMMON("普通", 89, Color("#fafafa")),
+    RARE("稀有", 8, Color("#5bcffa")),
+    EPIC("史诗", 2, Color("#f5abe9")),
+    LEGENDARY("传说", 1, Color("#fd8918"))
 }

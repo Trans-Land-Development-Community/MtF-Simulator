@@ -13,7 +13,8 @@ import kotlin.js.Date
 import kotlin.random.Random
 
 class Simulation(
-    private val baseAttribute: AttributeMap
+    private val baseAttribute: AttributeMap,
+    initTrait: List<Trait>
 ) {
     var age = -1
 
@@ -22,10 +23,10 @@ class Simulation(
     private val eventSet = BitSet()
     private val eventGroups = BitSet()
 
-    private val traits = ArrayList<Trait>()
+    private val traits = ArrayList(initTrait)
     private val traitSet = BitSet()
 
-    var attributes = baseAttribute; private set
+    var attributes = updateAttribute(); private set
 
     val dead: Boolean
         get() {
@@ -35,9 +36,14 @@ class Simulation(
                 || health + attributes[Attribute.STRENGTH] < 0
         }
 
+    init {
+        println(traits)
+    }
+
     fun grow(): EventResult {
         age++
 
+        println(attributes)
         val event = EventManager.getGrowEvent(this)
         val result = EventResult(age, event, event.getMessage(this))
 
@@ -45,16 +51,20 @@ class Simulation(
         eventSet.add(event.id)
         eventGroups.add(event.group.id)
 
-        val map = AttributeMap(baseAttribute)
-        eventResults.forEach {
-            it.event.applyModifier(this, map)
-        }
-        traits.forEach {
-            it.applyModifier(this, map)
-        }
-        attributes = map
+        attributes = updateAttribute()
 
         return result
+    }
+
+    private fun updateAttribute(): AttributeMap {
+        return AttributeMap(baseAttribute).apply {
+            eventResults.forEach {
+                it.event.applyModifier(this@Simulation, this)
+            }
+            traits.forEach {
+                it.applyModifier(this@Simulation, this)
+            }
+        }
     }
 
     fun addTrait(trait: Trait) {

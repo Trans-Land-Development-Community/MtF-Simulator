@@ -29,4 +29,8 @@ open class NonNullMap<K, V : Any>(
         get() = wrapped.keys
     override val values: Collection<V>
         get() = wrapped.values
+
+    override fun toString(): String {
+        return wrapped.toString()
+    }
 }
