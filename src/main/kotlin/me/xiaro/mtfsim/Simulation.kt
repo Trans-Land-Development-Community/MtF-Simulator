@@ -28,13 +28,7 @@ class Simulation(
 
     var attributes = updateAttribute(); private set
 
-    val dead: Boolean
-        get() {
-            val health = attributes[Attribute.HEALTH]
-
-            return health == Int.MIN_VALUE
-                || health + attributes[Attribute.STRENGTH] < 0
-        }
+    var dead = false; private set
 
     fun grow(): EventResult {
         age++
@@ -47,6 +41,14 @@ class Simulation(
         eventGroups.add(event.group.id)
 
         attributes = updateAttribute()
+
+        val health = attributes[Attribute.HEALTH]
+        val dead = health == Int.MIN_VALUE
+            || health + attributes[Attribute.STRENGTH] < 0
+        if (!this.dead && dead) {
+            SaveData.playedTimes++
+            this.dead = true
+        }
 
         return result
     }

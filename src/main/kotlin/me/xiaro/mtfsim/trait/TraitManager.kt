@@ -14,30 +14,31 @@ object TraitManager {
     val traits: List<Trait>
         get() = traits0
 
-    fun getRandomTraits(size: Int): List<Trait> {
+    fun getRandomTraits(size: Int, random: Random): List<Trait> {
         val set = BitSet()
         val list = ArrayList<Trait>()
 
-        while (list.size < 10) {
+        while (list.size < size) {
             var rarity = Rarity.COMMON
-            var random = Random.nextInt(100)
+            var randomNumber = random.nextInt(100)
 
             for (r in Rarity.values()) {
                 when {
-                    random < r.weight -> {
+                    randomNumber < r.weight -> {
                         rarity = r
                         break
                     }
                     else -> {
-                        random -= r.weight
+                        randomNumber -= r.weight
                     }
                 }
             }
 
-            val trait = rarityTraitsMap[rarity].random()
-            if (set.contains(trait.id)) continue
-            if (!trait.check(list)) continue
+            val filteredTraits = rarityTraitsMap[rarity].filter {
+                !set.contains(it.id) && it.check(list)
+            }
 
+            val trait = filteredTraits.randomOrNull(random) ?: continue
             set.add(trait.id)
             list.add(trait)
         }

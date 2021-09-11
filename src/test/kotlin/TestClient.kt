@@ -1,6 +1,7 @@
 import me.xiaro.mtfsim.Simulation
 import me.xiaro.mtfsim.attribute.AttributeMap
 import me.xiaro.mtfsim.trait.TraitManager
+import kotlin.random.Random
 import kotlin.test.Test
 
 class TestClient {
@@ -50,6 +51,6 @@ class TestClient {
     }
 
     private fun newSimulation(): Simulation {
-        return Simulation(AttributeMap.random(), TraitManager.getRandomTraits(3))
+        return Simulation(AttributeMap.random(), TraitManager.getRandomTraits(3, Random.Default))
     }
 } 

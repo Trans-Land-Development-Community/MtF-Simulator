@@ -10,6 +10,7 @@ import react.RComponent
 import react.setState
 import styled.css
 import styled.styledDiv
+import kotlin.random.Random
 
 class App : RComponent<Props, AppState>() {
     override fun AppState.init() {
@@ -36,7 +37,7 @@ class App : RComponent<Props, AppState>() {
                 Page.TRAIT -> {
                     child(TraitPage::class) {
                         attrs {
-                            availableTraits = TraitManager.getRandomTraits(10)
+                            availableTraits = TraitManager.getRandomTraits(10, Random.Default)
                             onNext = {
                                 setState {
                                     traits = it

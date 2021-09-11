@@ -48,6 +48,7 @@ class TraitPage : RComponent<TraitProp, TraitState>() {
                 transform {
                     translate((-50).pct, 0.pct)
                 }
+                width = 90.pct
                 fontSize = 1.2.rem
                 listStyleType = ListStyleType.none
                 overflow = Overflow.auto
@@ -79,7 +80,6 @@ class TraitPage : RComponent<TraitProp, TraitState>() {
     private fun traitButton(trait: Trait, selected: Boolean) = fc<Props> {
         styledLi {
             css {
-                marginTop = 0.2.rem
                 marginBottom = 0.2.rem
 
                 position = Position.relative

@@ -3,6 +3,7 @@ package me.xiaro.mtfsim.ui
 import kotlinx.css.*
 import kotlinx.css.properties.transform
 import kotlinx.css.properties.translate
+import me.xiaro.mtfsim.SaveData
 import react.RBuilder
 import react.RComponent
 import react.State
@@ -17,7 +18,24 @@ class MenuPage : RComponent<PageProp, State>() {
             css {
                 position = Position.fixed
                 left = 50.pct
-                top = 38.pct
+                top = 0.5.rem
+                transform {
+                    translate((-50).pct, 0.pct)
+                }
+                fontSize = 1.5.rem
+                fontWeight = FontWeight.bold
+                whiteSpace = WhiteSpace.nowrap
+                textAlign = TextAlign.center
+            }
+
+            +"已玩 ${SaveData.playedTimes} 次"
+        }
+
+        styledDiv {
+            css {
+                position = Position.fixed
+                left = 50.pct
+                top = 40.pct
                 transform {
                     translate((-50).pct, (-50).pct)
                 }
