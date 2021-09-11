@@ -102,6 +102,33 @@ class AttributeMap private constructor(private val array: IntArray) : Map<Attrib
         }
     }
 
+    val Attribute.value: Int
+        get() = this@AttributeMap[this]
+
+    operator fun Attribute.compareTo(value: Int): Int {
+        return this.value.compareTo(value)
+    }
+
+    operator fun Int.minus(attribute: Attribute): Int {
+        return this - attribute.value
+    }
+
+    operator fun Attribute.times(value: Int): Int {
+        return this.value * value
+    }
+
+    operator fun Attribute.div(value: Int): Int {
+        return this.value / value
+    }
+
+    operator fun Attribute.times(value: Double): Double {
+        return this.value * value
+    }
+
+    operator fun Attribute.div(value: Double): Double {
+        return this.value / value
+    }
+
     companion object {
         private val keySet = WrappedSet(Attribute.values())
 

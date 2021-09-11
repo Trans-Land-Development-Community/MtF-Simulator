@@ -37,17 +37,17 @@ object EventManager {
         }
 
         val mapped = filtered.map {
-            it.calcWeight(simulation) to it
+            it.calcWeight(simulation).toLong() to it
         }
 
         val sumOfWeight = mapped.sumOf { it.first }
-        var random = simulation.random.nextInt(sumOfWeight)
+        var random = simulation.random.nextLong(sumOfWeight)
 
         var event: Event? = null
 
         for ((weight, e) in mapped) {
             when {
-                weight == 255 -> return e
+                weight == 9999L -> return e
                 event == null && random < weight -> event = e
                 else -> random -= weight
             }

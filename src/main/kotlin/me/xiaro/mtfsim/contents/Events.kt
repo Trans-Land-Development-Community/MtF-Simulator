@@ -75,7 +75,9 @@ fun initEvents() {
 
         "独生子女" {
             desc("你是父母唯一一个孩子。")
-            weight(2000)
+            weight {
+                if (hasTrait("独生子女")) Int.MAX_VALUE else 9999
+            }
         }
         "哥哥" {
             desc("你有一个哥哥。")
@@ -93,7 +95,7 @@ fun initEvents() {
 
         "生儿育女" {
             desc("父母想要个女孩子，于是把你当成女孩子养了")
-            check { youngerThan(3) }
+            check { youngerThan(3) && Attribute.ECONOMIC > 12 && Attribute.BEAUTY > 10 }
             weight(50)
             modify {
                 Attribute.FEMININITY + 4

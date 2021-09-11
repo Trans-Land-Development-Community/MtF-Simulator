@@ -19,7 +19,7 @@ fun initTraits() {
         }
     }
 
-    "痘痘脸" {
+    "天残党" {
         rarity(Rarity.COMMON)
         desc("颜值-2")
         modify {
@@ -48,9 +48,29 @@ fun initTraits() {
         desc("占用一个天赋位")
     }
 
+    "易胖体质" {
+        rarity(Rarity.COMMON)
+        desc("颜值更容易降低")
+    }
+
     "平凡之人" {
         rarity(Rarity.COMMON)
         desc("无事发生的几率提高")
+    }
+
+    "独生子女" {
+        rarity(Rarity.COMMON)
+        desc("你没有兄弟姐妹")
+    }
+
+
+    "抖M" {
+        rarity(Rarity.COMMON)
+        desc("家境-2，快乐+2")
+        modify {
+            Attribute.ECONOMIC - 2
+            Attribute.HAPPINESS + 2
+        }
     }
 
 
@@ -66,9 +86,20 @@ fun initTraits() {
         exclude("农村人")
     }
 
-    "怪异" {
-        rarity(Rarity.RARE)
-        desc("听说能用来实现愿望")
+    "成人礼" {
+        rarity(Rarity.COMMON)
+        desc("18岁时快乐+2")
+        modify {
+            if (it.olderThan(18)) Attribute.HAPPINESS + 2
+        }
+    }
+
+    "整容" {
+        rarity(Rarity.COMMON)
+        desc("家境>20时颜值+3")
+        modify {
+            if (Attribute.ECONOMIC > 20) Attribute.HAPPINESS + 2
+        }
     }
 
     "网络巨魔" {
@@ -79,12 +110,47 @@ fun initTraits() {
         }
     }
 
-    "基因改良" {
+    "女大十八变" {
         rarity(Rarity.RARE)
-        desc("所有属性+1")
+        desc("18岁时颜值+4")
         modify {
-            Attribute.allAttributes + 1
+            if (it.olderThan(18)) Attribute.BEAUTY + 4
         }
+    }
+
+    "形象管理" {
+        rarity(Rarity.RARE)
+        desc("24岁时颜值+4")
+        modify {
+            if (it.olderThan(24)) Attribute.BEAUTY + 4
+        }
+    }
+
+    "成熟" {
+        rarity(Rarity.RARE)
+        desc("18岁时智力+4")
+        modify {
+            if (it.olderThan(18)) Attribute.IQ + 4
+        }
+    }
+
+    "超进化" {
+        rarity(Rarity.RARE)
+        desc("所有属性>5时，所有属性+2")
+        modify {
+            if (Attribute.allAttributes.all { this[it] > 5 }) Attribute.allAttributes + 2
+        }
+    }
+
+    "祖传药丸" {
+        rarity(Rarity.RARE)
+        desc("功能不明")
+    }
+
+
+    "怪异" {
+        rarity(Rarity.EPIC)
+        desc("听说能用来实现愿望")
     }
 
     "神奇海螺" {
@@ -99,17 +165,17 @@ fun initTraits() {
 
     "家长党" {
         rarity(Rarity.EPIC)
-        desc("家境+5，提升出柜成功率")
+        desc("家境+8，提升出柜成功率")
         modify {
-            Attribute.ECONOMIC + 5
+            Attribute.ECONOMIC + 8
         }
     }
 
     "天赋党" {
         rarity(Rarity.EPIC)
-        desc("颜值+5")
+        desc("颜值+8")
         modify {
-            Attribute.BEAUTY + 5
+            Attribute.BEAUTY + 8
         }
     }
 
@@ -123,9 +189,9 @@ fun initTraits() {
 
     "基因飞升二段" {
         rarity(Rarity.LEGENDARY)
-        desc("所有属性+3")
+        desc("所有属性+4")
         modify {
-            Attribute.allAttributes + 3
+            Attribute.allAttributes + 4
         }
     }
 
