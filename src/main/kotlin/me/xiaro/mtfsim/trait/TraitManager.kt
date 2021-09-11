@@ -51,8 +51,12 @@ object TraitManager {
     }
 
     fun registerTrait(trait: Trait) {
-        traits0.add(trait)
-        nameTraitMap[trait.name] = trait
+        nameTraitMap.put(trait.name, trait)?.let {
+            console.error("Name ${trait.name} already register with $it")
+            nameTraitMap[it.name] = it
+            return
+        }
         rarityTraitsMap[trait.rarity].add(trait)
+        traits0.add(trait)
     }
 }

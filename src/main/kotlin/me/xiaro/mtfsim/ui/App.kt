@@ -2,7 +2,6 @@ package me.xiaro.mtfsim.ui
 
 import kotlinx.css.fontSize
 import kotlinx.css.rem
-import me.xiaro.mtfsim.SaveData
 import me.xiaro.mtfsim.Simulation
 import me.xiaro.mtfsim.trait.TraitManager
 import react.Props
@@ -39,7 +38,8 @@ class App : RComponent<Props, AppState>() {
                     child(TraitPage::class) {
                         attrs {
                             availableTraits =
-                                TraitManager.getRandomTraits(10, Random(SaveData.hwid * SaveData.playedTimes))
+                                //TraitManager.getRandomTraits(10, Random(SaveData.hwid * SaveData.playedTimes))
+                                TraitManager.getRandomTraits(10, Random.Default)
                             onNext = {
                                 setState {
                                     traits = it
